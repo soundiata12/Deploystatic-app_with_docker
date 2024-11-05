@@ -5,7 +5,7 @@ pipeline{
     stages{
         stage("build image"){
             steps{
-                echo "docker build -t aap:latest ."
+                sh "docker build -t aap:latest ."
                 }
         }
 
