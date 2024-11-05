@@ -3,9 +3,9 @@ pipeline{
         
     
     stages{
-        stage(""){
+        stage("build image"){
             steps{
-                echo "========executing===="
+                echo "docker build -t aap:latest ."
                 }
         }
 
