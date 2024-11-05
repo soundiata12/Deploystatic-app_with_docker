@@ -6,7 +6,7 @@ pipeline{
         stage("build image"){
             steps{
                 sh 'docker build -t aap:latest .'
-                sh 'docker tag static-app:latest soundiata87/static-app:latest
+                sh 'docker tag static-app:latest soundiata87/static-app:latest'
                 sh 'docker push soundiata87/static-app:tagname'
                 sh 'docker rmi static-app'
                 }
