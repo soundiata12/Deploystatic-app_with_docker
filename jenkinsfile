@@ -1,7 +1,7 @@
 pipeline{
     agent any
         parameters {
-            string(name: 'IMAGE_TAG', defaultValue: '1.0.3')
+            string(name: 'IMAGETAG', defaultValue: '1.0.3')
         }
     
     stages{
@@ -11,9 +11,9 @@ pipeline{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
                       withDockerRegistry(credentialsId: '7033ed97-cf04-4e9d-ae5d-e4b878c8067b') {
-                       sh 'docker build -t app:${params.IMAGE_TAG} .'
-                       sh 'docker tag app:${params.IMAGE_TAG} soundiata87/app:${params.IMAGE_TAG}'
-                       sh 'docker push soundiata87/app:${params.IMAGE_TAG}'
+                       sh 'docker build -t app:${params.IMAGETAG} .'
+                       sh 'docker tag app:${params.IMAGETAG} soundiata87/app:${params.IMAGETAG}'
+                       sh 'docker push soundiata87/app:${params.IMAGETAG}'
                        //sh 'docker rmi app:1.0.3'//
                 }
              }
