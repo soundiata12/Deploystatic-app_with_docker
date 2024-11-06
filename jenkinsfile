@@ -1,7 +1,7 @@
 pipeline{
     agent any
         parameters {
-            string(name: 'IMAGE_TAG', defautlValue: '1.0.3')
+            string(name: 'IMAGE_TAG', defaultValue: '1.0.3')
         }
     
     stages{
