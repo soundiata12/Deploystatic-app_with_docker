@@ -3,7 +3,7 @@ pipeline{
         
     
     stages{
-        state("fetch"){
+    
         stage("build image"){
             steps{
                 script{
@@ -19,5 +19,5 @@ pipeline{
         }
         }
     }
-}
+
         
