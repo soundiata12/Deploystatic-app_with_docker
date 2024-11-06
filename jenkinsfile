@@ -8,7 +8,7 @@ pipeline{
             steps{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
-                      withDockerRegistry(credentialsId: 'dockerhubid ') {
+                      withDockerRegistry(credentialsId: '7033ed97-cf04-4e9d-ae5d-e4b878c8067b') {
                        sh 'docker build -t app:1.0.3 .'
                        sh 'docker tag app:1.0.3 soundiata87/app:1.0.3'
                        sh 'docker push soundiata87/app:1.0.3'
