@@ -12,7 +12,7 @@ pipeline{
                        sh 'docker build -t app:1.0.3 .'
                        sh 'docker tag app:1.0.3 soundiata87/app:1.0.3'
                        sh 'docker push soundiata87/app:1.0.3'
-                       sh 'docker rmi app'
+                       sh 'docker rmi app:1.0.3'
                 }
              }
             }
