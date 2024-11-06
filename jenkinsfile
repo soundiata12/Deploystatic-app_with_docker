@@ -9,15 +9,15 @@ pipeline{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
                       withDockerRegistry(credentialsId: 'dockerhubid ') {
-                       sh 'docker build -t app:1.0.3.'
-                       sh 'docker tag static-app:l.0.3 soundiata87/static-app:latest'
-                       sh 'docker push soundiata87/static-app:1.0.3'
-                       sh 'docker rmi static-app'
+                       sh 'docker build -t app:1.0.3 .'
+                       sh 'docker tag app:1.0.3 soundiata87/app:1.0.3'
+                       sh 'docker push soundiata87/app:1.0.3'
+                       sh 'docker rmi app'
                 }
              }
             }
         }
-        }
+     }
     }
 
         
