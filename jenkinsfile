@@ -26,8 +26,7 @@ pipeline{
                     withDockerRegistry(credentialsId: 'ecr:us-east-1:My-static-app', url: 'https://646617499701.dkr.ecr.us-east-1.amazonaws.com/') {
                         sh "docker build -t my-static-app:${params.IMAGETAG } ." 
                         sh "docker tag my-static-app:${params.IMAGETAG} 646617499701.dkr.ecr.us-east-1.amazonaws.com/my-static-app:${params.IMAGETAG} "
-                        sh "docker tag my-static-app:latest 646617499701.dkr.ecr.us-east-1.amazonaws.com/my-static-app:latest"
-                        sh "docker push 646617499701.dkr.ecr.us-east-1.amazonaws.com/my-static-app:latest "
+                        sh "docker push 646617499701.dkr.ecr.us-east-1.amazonaws.com/my-static-app:${params.IMAGES} "
                         echo "See if im connected"
                  }
                 }
