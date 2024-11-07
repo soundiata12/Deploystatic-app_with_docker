@@ -35,7 +35,7 @@ pipeline{
                         sh "docker tag my-static-app:${params.IMAGETAG} ${MY_URL}/${MYAPP_NAME}:${params.IMAGETAG} "
                         sh "docker tag my-static-app:${params.IMAGETAG} ${MY_URL}/${MYAPP_NAME}:latest"
                         sh "docker push ${MY_URL}/${MYAPP_NAME}:latest"
-                        sh "docker push ${MY_URL}/${MYAPP_NAME}:${params.IMAGE}"
+                        sh "docker push ${MY_URL}/${MYAPP_NAME}:${params.IMAGETAG}"
                         echo "See if im connected"
                  }
                 }
