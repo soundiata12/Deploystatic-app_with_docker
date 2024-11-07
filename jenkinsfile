@@ -3,6 +3,13 @@ pipeline{
         parameters {
             string(name: 'IMAGETAG', defaultValue: '1.0.3')
         }
+        env{
+            MYCRE_ID= 'ecr:us-east-1:My-static-app'
+            FULL_REPO_URL= 'https://646617499701.dkr.ecr.us-east-1.amazonaws.com/'
+            MY_URL = '646617499701.dkr.ecr.us-east-1.amazonaws.com/'
+            MYAPP_NAME= 'My-static-app'
+        }
+
     
     stages{
     
@@ -23,11 +30,12 @@ pipeline{
             steps{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
-                    withDockerRegistry(credentialsId: 'ecr:us-east-1:My-static-app', url: 'https://646617499701.dkr.ecr.us-east-1.amazonaws.com/') {
+                    withDockerRegistry(credentialsId: ${MYCRED_ID}, url: ${params.FULL-REPO_URL}) {
                         sh "docker build -t my-static-app:${params.IMAGETAG } ." 
-                        sh "docker tag my-static-app:${params.IMAGETAG} 646617499701.dkr.ecr.us-east-1.amazonaws.com/my-static-app:${params.IMAGETAG} "
-                        sh "docker tag my-static-app:${params.IMAGETAG} 646617499701.dkr.ecr.us-east-1.amazonaws.com/my-static-app:latest"
-                        sh "docker push 646617499701.dkr.ecr.us-east-1.amazonaws.com/my-static-app:latest"
+                        sh "docker tag my-static-app:${params.IMAGETAG} ${MY_URL}/${MYAPP_NAME}:${params.IMAGETAG} "
+                        sh "docker tag my-static-app:${params.IMAGETAG} ${MY_URL}/${MYAPP_NAME}:latest"
+                        sh "docker push ${MY_URL}/${MYAPP_NAME}:latest"
+                        sh "docker push ${MY_URL}/${MYAPP_NAME}:${params.IMAGE}"
                         echo "See if im connected"
                  }
                 }
