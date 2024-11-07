@@ -13,7 +13,7 @@ pipeline{
     
     stages{
     
-        stage("build image4"){
+        stage("build image5"){
             steps{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
