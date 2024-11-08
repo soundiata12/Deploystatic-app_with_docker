@@ -8,6 +8,9 @@ pipeline{
             FULL_REPO_URL= 'https://646617499701.dkr.ecr.us-east-1.amazonaws.com/'
             MY_URL = '646617499701.dkr.ecr.us-east-1.amazonaws.com/'
             MYAPP_NAME= 'My-static-app'
+            ECS_CLUSTER_NAME= 'mystatic-app'
+
+
         }
 
     
@@ -41,9 +44,9 @@ pipeline{
                 }
             }
         }
-        stage ("Update EC2"){
+        stage ("Update ECS"){
             steps{
-                
+               sh "aws ecs update-service --cluster ${ECS_CLUSTER_NAME} --service  ${ECS_SERVICE_NAME} --force-new-deployment"
             }
         }
      }
