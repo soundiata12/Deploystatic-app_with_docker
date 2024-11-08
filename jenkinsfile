@@ -7,8 +7,8 @@ pipeline{
             MYCRE_ID= 'ecr:us-east-1:my-static-app'
             FULL_REPO_URL= 'https://646617499701.dkr.ecr.us-east-1.amazonaws.com/'
             MY_URL = '646617499701.dkr.ecr.us-east-1.amazonaws.com/'
-            MYAPP_NAME= 'My-static-app'
-            ECS_CLUSTER_NAME= 'mystatic-app'
+            MYAPP_NAME= 'my-static-app'
+            ECS_CLUSTER_NAME= 'my-static-app'
 
 
         }
