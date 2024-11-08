@@ -41,6 +41,11 @@ pipeline{
                 }
             }
         }
+        stage ("Update EC2"){
+            steps{
+                
+            }
+        }
      }
     }
 
