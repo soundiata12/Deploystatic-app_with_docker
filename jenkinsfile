@@ -33,7 +33,7 @@ pipeline{
             steps{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
-                    withDockerRegistry(credentialsId: MYCRED_ID, url: FULL-REPO_URL) {
+                    withDockerRegistry(credentialsId: MYCRE_ID, url: FULL-REPO_URL) {
                         sh "docker build -t my-static-app:${params.IMAGETAG } ." 
                         sh "docker tag my-static-app:${params.IMAGETAG} ${MY_URL}/${MYAPP_NAME}:${params.IMAGETAG} "
                         sh "docker tag my-static-app:${params.IMAGETAG} ${MY_URL}/${MYAPP_NAME}:latest"
