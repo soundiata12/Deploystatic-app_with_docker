@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        MYCRE_ID = 'your-aws-credentials-id' // Ensure this matches the ID in Jenkins
+        MYCRE_ID = 'My-static-app' // Ensure this matches the ID in Jenkins
         FULL_REPO_URL = 'https://646617499701.dkr.ecr.us-east-1.amazonaws.com/'
         MY_URL = '646617499701.dkr.ecr.us-east-1.amazonaws.com/'
         MYAPP_NAME = 'my-static-app'
