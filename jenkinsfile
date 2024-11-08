@@ -1,55 +1,52 @@
-pipeline{
+pipeline {
     agent any
-        parameters {
-            string(name: 'IMAGETAG', defaultValue: '1.0.3')
-        }
-        environment{
-            MYCRE_ID= 'ecr:us-east-1:My-static-app'
-            FULL_REPO_URL= 'https://646617499701.dkr.ecr.us-east-1.amazonaws.com/'
-            MY_URL = '646617499701.dkr.ecr.us-east-1.amazonaws.com/'
-            MYAPP_NAME= 'my-static-app'
-            ECS_CLUSTER_NAME= 'my-static-app'
 
+    parameters {
+        string(name: 'IMAGETAG', defaultValue: '1.0.3')
+    }
 
-        }
+    environment {
+        MYCRE_ID = 'ecr:us-east-1:my-static-app'
+        FULL_REPO_URL = 'https://646617499701.dkr.ecr.us-east-1.amazonaws.com/'
+        MY_URL = '646617499701.dkr.ecr.us-east-1.amazonaws.com/'
+        MYAPP_NAME = 'my-static-app'
+        ECS_CLUSTER_NAME = 'my-static-app'
+        ECS_SERVICE_NAME = 'my-static-app-service' // Added this environment variable that was missing
+    }
 
-    
-    stages{
-    
-        stage("build image5"){
-            steps{
-                script{
-                    // This step should not normally be used in your script. Consult the inline help for details.
-                      withDockerRegistry(credentialsId: '7033ed97-cf04-4e9d-ae5d-e4b878c8067b') {
-                       sh "docker build -t app:${params.IMAGETAG} ."
-                       sh "docker tag app:${params.IMAGETAG} soundiata87/app:${params.IMAGETAG}"
-                       sh "docker push soundiata87/app:${params.IMAGETAG}"
-                       //sh "docker rmi app:1.0.3"//
+    stages {
+        stage("Build Image") {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: '7033ed97-cf04-4e9d-ae5d-e4b878c8067b') {
+                        sh "docker build -t app:${params.IMAGETAG} ."
+                        sh "docker tag app:${params.IMAGETAG} soundiata87/app:${params.IMAGETAG}"
+                        sh "docker push soundiata87/app:${params.IMAGETAG}"
+                    }
                 }
-             }
             }
         }
-        stage("Build and push ECR"){
-            steps{
-                script{
-                    // This step should not normally be used in your script. Consult the inline help for details.
+        stage("Build and Push ECR") {
+            steps {
+                script {
                     withDockerRegistry(credentialsId: MYCRE_ID, url: FULL_REPO_URL) {
-                        sh "docker build -t my-static-app:${params.IMAGETAG } ." 
-                        sh "docker tag my-static-app:${params.IMAGETAG} ${MY_URL}/${MYAPP_NAME}:${params.IMAGETAG} "
+                        sh "docker build -t my-static-app:${params.IMAGETAG} ."
+                        sh "docker tag my-static-app:${params.IMAGETAG} ${MY_URL}/${MYAPP_NAME}:${params.IMAGETAG}"
                         sh "docker tag my-static-app:${params.IMAGETAG} ${MY_URL}/${MYAPP_NAME}:latest"
                         sh "docker push ${MY_URL}/${MYAPP_NAME}:latest"
                         sh "docker push ${MY_URL}/${MYAPP_NAME}:${params.IMAGETAG}"
-                        echo "See if im connected"
-                 }
+                        echo "See if I'm connected"
+                    }
                 }
             }
         }
-        stage ("Update ECS"){
-            steps{
-               sh "aws ecs update-service --cluster ${ECS_CLUSTER_NAME} --service  ${ECS_SERVICE_NAME} --force-new-deployment"
+        stage("Update ECS") {
+            steps {
+                sh "aws ecs update-service --cluster ${ECS_CLUSTER_NAME} --service ${ECS_SERVICE_NAME} --force-new-deployment"
             }
         }
-     }
     }
+}
+
 
         
